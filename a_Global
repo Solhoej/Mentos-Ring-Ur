@@ -11,6 +11,14 @@ const int colorR = 255;
 const int colorG = 255;
 const int colorB = 255;
 
+String(ClockText) = "Cock";
+String(StopText) = "Stop Ur";
+String(GuessText) = "Guess Ur";
+String(BoilText) = "Boil Egg";
+String(AlarmText) = "Alarm";
+
+
+
 int buttonState = 0;
 int state = 0;
 int boilState = 0;
@@ -34,6 +42,17 @@ bool callAlarm = false;
 bool usingBoil = false;
 
 bool buttonPressed = false;
+
+byte amogus[8] = {
+    0b00100,
+    0b01010,
+    0b00100,
+    0b10101,
+    0b01110,
+    0b00100,
+    0b00100,
+    0b01010
+};
 
 void Clock();
 void StopUr();
@@ -67,3 +86,4 @@ void loop()
   Time++;
 
 }
+
