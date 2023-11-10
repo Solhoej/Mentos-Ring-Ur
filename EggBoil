@@ -3,23 +3,34 @@
 void BoilEgg() 
 {
 
-  String(text);
+    switch(Index) {
+    case 0:
+      SwitchScreen(EncoderFunc());
+      if (ButtonFunc("Boil Egg",3)){
+        Index++;
+        BoilText = "Using Boil Egg";
+        callBoil = true;
+      }
+      break;
+    case 1:
 
-  if(callBoil == true) 
+      if (ButtonFunc("Boil Egg",3)){
+        Index = 0;
+        BoilText = "Boil Egg";
+        callBoil = true;
+      }
+
+      break;
+    default:
+      break;
+  }
+
+    if(callBoil == true) 
   {
-    if(usingGlobal == false)
-    {
-      text = "Using Boil Cock";  
-    }
-    else if(usingGlobal == true)
-    {
-      text = "Boil Cock";
-    }
-
     int Index = 0;
 
     lcd.begin(16, 2);
-    lcd.print(text);
+    lcd.print(BoilText);
     Serial.println(state);
     callStop = true;
     callGuess = true;
@@ -30,25 +41,6 @@ void BoilEgg()
     const int colorG = 0;
     const int colorB = 255;
     lcd.setRGB(colorR, colorG, colorB);
-  }
-
-    switch(Index) {
-    case 0:
-      SwitchScreen(EncoderFunc());
-      if (ButtonFunc("Boil Egg",3)){
-        Index++;
-      }
-      break;
-    case 1:
-
-      //code goes here:
-      if (ButtonFunc("Boil Egg",3)){
-        Index = 0;
-      }
-
-      break;
-    default:
-      break;
   }
 
 }
