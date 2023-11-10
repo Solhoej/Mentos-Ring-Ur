@@ -1,0 +1,62 @@
+#include <rgb_lcd.h>
+#include <Encoder.h>
+
+Encoder enkoder(4, 5);
+rgb_lcd lcd;
+
+const int buttonPin = 2;
+const int beepPin = 3;
+
+const int colorR = 255;
+const int colorG = 255;
+const int colorB = 255;
+
+int buttonState = 0;
+int state = 0;
+
+long oldPosition  = -999;
+
+bool lastButtonState = HIGH;
+
+bool callClock = true;
+bool callStop = false;
+bool callGuess = false;
+bool callBoil = false;
+bool callAlarm = false;
+
+bool buttonPressed = false;
+
+void Clock();
+void StopUr();
+void GuessTime();
+void BoilEgg();
+void Alarm();
+
+void (*functionArray[])() = {Clock, StopUr, GuessTime, BoilEgg, Alarm};
+
+void setup() 
+{
+  Serial.begin(9600);
+
+  lcd.begin(16, 2);
+  lcd.setRGB(colorR, colorG, colorB);
+
+  enkoder.write(0);
+
+  pinMode(beepPin, OUTPUT);
+  pinMode(buttonPin, INPUT);
+
+}
+
+void loop() 
+{
+
+  EncoderFunc();
+
+  ButtonFunc();
+
+  digitalWrite(beepPin, LOW);
+
+  functionArray[state]();
+
+}
