@@ -1,0 +1,19 @@
+void Clock() 
+{
+  if(callClock == true) 
+  {
+    lcd.begin(16, 2);
+    lcd.print("Cock");
+    Serial.println(state);
+    callStop = true;
+    callGuess = true;
+    callBoil = true;
+    callAlarm = true;
+    callClock = false;
+    const int colorR = 255;
+    const int colorG = 0;
+    const int colorB = 0;
+    lcd.setRGB(colorR, colorG, colorB);
+  }
+
+}
