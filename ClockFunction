@@ -39,6 +39,7 @@ void Clock()
       }
       break;
     case 1:
+      //code goes here:
 
       if (ButtonFunc("Clock",0)){
         Index = 0;
