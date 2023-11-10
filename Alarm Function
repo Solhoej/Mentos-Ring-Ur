@@ -7,6 +7,9 @@ void Alarm()
       SwitchScreen(EncoderFunc());
       if (ButtonFunc("Alarm",4)){
         Index++;
+         colorR = 232;
+         colorG = 137;
+         colorB = 137;
         AlarmText = "Using Alarm";
         callAlarm = true;
       }
@@ -15,6 +18,9 @@ void Alarm()
 
       if (ButtonFunc("Alarm",4)){
         Index = 0;
+        colorR = 204;
+        colorG = 255;
+        colorB = 236;
         AlarmText = "Alarm";
         callAlarm = true;
       }
@@ -36,9 +42,6 @@ void Alarm()
     callBoil = true;
     callAlarm = false;
     callClock = true;
-    const int colorR = 0;
-    const int colorG = 255;
-    const int colorB = 255;
     lcd.setRGB(colorR, colorG, colorB);
   }
 
