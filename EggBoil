@@ -37,9 +37,9 @@ void BoilEgg()
     callBoil = false;
     callAlarm = true;
     callClock = true;
-    const int colorR = 255;
-    const int colorG = 0;
-    const int colorB = 255;
+        colorR = 204;
+        colorG = 255;
+        colorB = 236;
     lcd.setRGB(colorR, colorG, colorB);
   }
 
