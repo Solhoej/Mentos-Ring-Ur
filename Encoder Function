@@ -1,28 +1,34 @@
-void EncoderFunc()
+long value;
+
+long EncoderFunc()
 {
-  long EnkoderValue = enkoder.read();
-  buttonState = digitalRead(buttonPin);
-
-  state = EnkoderValue / 4;
-
-  long newPosition = state;
-  if (newPosition != oldPosition) {
-    oldPosition = newPosition;
-    digitalWrite(beepPin, HIGH);
-    delay(1);
-    digitalWrite(beepPin, LOW);
-  }
-
-  if (state < 0)
+  if(usingGlobal == true)
   {
-    enkoder.write(16);
-    EnkoderValue = enkoder.read();
-    state = EnkoderValue / 4;
-  }
-  if (state > 4)
-  {
-    enkoder.write(0);
-    EnkoderValue = enkoder.read();
-    state = EnkoderValue / 4;
+    long EnkoderValue = enkoder.read();
+
+    value = EnkoderValue / 4;
+
+    long newPosition = value;
+    if (newPosition != oldPosition) 
+    {
+      oldPosition = newPosition;
+      digitalWrite(beepPin, HIGH);
+      delay(1);
+      digitalWrite(beepPin, LOW);
+    }
+
+    if (value < 0)
+    {
+      enkoder.write(16);
+      EnkoderValue = enkoder.read();
+      value = EnkoderValue / 4;
+    }
+    if (value > 4)
+    {
+      enkoder.write(0);
+      EnkoderValue = enkoder.read();
+      value = EnkoderValue / 4;
+    }
+    return value;
   }
 }
