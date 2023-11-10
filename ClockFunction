@@ -1,9 +1,23 @@
 void Clock() 
 {
-  if(callClock == true) 
+
+  String(text);
+
+  if(callClock == true)
   {
+    if(usingGlobal == false)
+    {
+      text = "Using Cock";  
+    }
+    else if(usingGlobal == true)
+    {
+      text = "Cock";  
+    }
+
+    int Index = 0;
+    
     lcd.begin(16, 2);
-    lcd.print("Cock");
+    lcd.print(text);
     Serial.println(state);
     callStop = true;
     callGuess = true;
@@ -14,6 +28,25 @@ void Clock()
     const int colorG = 0;
     const int colorB = 0;
     lcd.setRGB(colorR, colorG, colorB);
+  }
+
+    switch(Index) {
+    case 0:
+      SwitchScreen(EncoderFunc());
+      Serial.println("ha"+EncoderFunc());
+      if (ButtonFunc("Clock",0)){
+        Index++;
+      }
+      break;
+    case 1:
+
+      if (ButtonFunc("Clock",0)){
+        Index = 0;
+      }
+
+      break;
+    default:
+      break;
   }
 
 }
