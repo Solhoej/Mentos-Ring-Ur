@@ -1,0 +1,18 @@
+void GuessTime() 
+{
+  if(callGuess == true) 
+  {
+    lcd.begin(16, 2);
+    lcd.print("Guess Cock");
+    Serial.println(state);
+    callStop = true;
+    callClock = true;
+    callBoil = true;
+    callAlarm = true;
+    callGuess = false;
+    const int colorR = 0;
+    const int colorG = 0;
+    const int colorB = 255;
+    lcd.setRGB(colorR, colorG, colorB);
+  }
+}
