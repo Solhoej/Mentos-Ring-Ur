@@ -13,6 +13,13 @@ const int colorB = 255;
 
 int buttonState = 0;
 int state = 0;
+int boilState = 0;
+
+int Index = 0;
+
+int Time = 0;
+
+bool usingGlobal = true;
 
 long oldPosition  = -999;
 
@@ -23,6 +30,8 @@ bool callStop = false;
 bool callGuess = false;
 bool callBoil = false;
 bool callAlarm = false;
+
+bool usingBoil = false;
 
 bool buttonPressed = false;
 
@@ -51,12 +60,10 @@ void setup()
 void loop() 
 {
 
-  EncoderFunc();
-
-  ButtonFunc();
-
   digitalWrite(beepPin, LOW);
 
   functionArray[state]();
+
+  Time++;
 
 }
