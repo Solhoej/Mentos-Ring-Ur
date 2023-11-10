@@ -1,22 +1,33 @@
 void StopUr() 
 {
-  String(text);
+      switch(Index) {
+    case 0:
+      SwitchScreen(EncoderFunc());
+      if (ButtonFunc("StopUr",1)){
+        Index++;
+        StopText = "Using Stop Ur";
+        callStop = true;
+      }
+      break;
+    case 1:
 
-  if(callStop == true) 
+      if (ButtonFunc("StopUr",1)){
+        Index = 0;
+        StopText = "Stop Ur";
+        callStop = true;
+      }
+
+      break;
+    default:
+      break;
+  }
+
+    if(callStop == true) 
   {
-    if(usingGlobal == false)
-    {
-      text = "Using Stop Cock";  
-    }
-    else if(usingGlobal == true)
-    {
-      text = "Stop Cock";  
-    }
-
     int Index = 0;
 
     lcd.begin(16, 2);
-    lcd.print(text);
+    lcd.print(StopText);
     Serial.println(state);
     callStop = false;
     callGuess = true;
@@ -27,26 +38,5 @@ void StopUr()
     const int colorG = 255;
     const int colorB = 0;
     lcd.setRGB(colorR, colorG, colorB);
-  }
-
-      switch(Index) {
-    case 0:
-      SwitchScreen(EncoderFunc());
-      if (ButtonFunc("StopUr",1)){
-        Index++;
-      }
-      break;
-    case 1:
-
-
-      //code goes here:
-
-      if (ButtonFunc("StopUr",1)){
-        Index = 0;
-      }
-
-      break;
-    default:
-      break;
   }
 }
