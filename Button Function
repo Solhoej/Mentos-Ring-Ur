@@ -1,11 +1,15 @@
-void ButtonFunc()
+bool ButtonFunc(String arg, int lastState)
 {
+  buttonState = digitalRead(buttonPin);
   if (buttonState == HIGH && buttonPressed == false) 
   {
     // turn LED on:
     buttonPressed = true;
-    Serial.println("Pressed");
-  } else if(buttonState == LOW && buttonPressed == true) 
+    usingGlobal = !usingGlobal;
+    Serial.println("Pressed " + arg);
+    return true;
+  } 
+  else if(buttonState == LOW && buttonPressed == true) 
   {
     // turn LED off:
     buttonPressed = false;
@@ -13,5 +17,7 @@ void ButtonFunc()
     digitalWrite(beepPin, HIGH);
     delay(10);
     digitalWrite(beepPin, LOW);
+    return false;
   }
+  return false;
 }
