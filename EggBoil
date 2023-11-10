@@ -41,6 +41,7 @@ void BoilEgg()
       break;
     case 1:
 
+      //code goes here:
       if (ButtonFunc("Boil Egg",3)){
         Index = 0;
       }
