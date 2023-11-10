@@ -1,18 +1,49 @@
 void StopUr() 
 {
+  String(text);
+
   if(callStop == true) 
   {
+    if(usingGlobal == false)
+    {
+      text = "Using Stop Cock";  
+    }
+    else if(usingGlobal == true)
+    {
+      text = "Stop Cock";  
+    }
+
+    int Index = 0;
+
     lcd.begin(16, 2);
-    lcd.print("Stop Cock");
+    lcd.print(text);
     Serial.println(state);
-    callClock = true;
+    callStop = false;
     callGuess = true;
     callBoil = true;
     callAlarm = true;
-    callStop = false;
+    callClock = true;
     const int colorR = 0;
     const int colorG = 255;
     const int colorB = 0;
     lcd.setRGB(colorR, colorG, colorB);
+  }
+
+      switch(Index) {
+    case 0:
+      SwitchScreen(EncoderFunc());
+      if (ButtonFunc("StopUr",1)){
+        Index++;
+      }
+      break;
+    case 1:
+
+      if (ButtonFunc("StopUr",1)){
+        Index = 0;
+      }
+
+      break;
+    default:
+      break;
   }
 }
