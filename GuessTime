@@ -6,6 +6,9 @@ void GuessTime()
       SwitchScreen(EncoderFunc());
       if (ButtonFunc("Guess Time",2)){
         Index++;
+         colorR = 232;
+         colorG = 137;
+         colorB = 137;
         GuessText = "Using Guess Ur";
         callGuess = true;
       }
@@ -14,6 +17,9 @@ void GuessTime()
 
       if (ButtonFunc("Guess Time",2)){
         Index = 0;
+        colorR = 204;
+        colorG = 255;
+        colorB = 236;
         GuessText = "Guess Ur";
         callGuess = true;
       }
@@ -35,9 +41,6 @@ void GuessTime()
     callBoil = true;
     callAlarm = true;
     callClock = true;
-    const int colorR = 0;
-    const int colorG = 0;
-    const int colorB = 255;
     lcd.setRGB(colorR, colorG, colorB);
   }
 
