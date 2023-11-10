@@ -1,0 +1,18 @@
+void StopUr() 
+{
+  if(callStop == true) 
+  {
+    lcd.begin(16, 2);
+    lcd.print("Stop Cock");
+    Serial.println(state);
+    callClock = true;
+    callGuess = true;
+    callBoil = true;
+    callAlarm = true;
+    callStop = false;
+    const int colorR = 0;
+    const int colorG = 255;
+    const int colorB = 0;
+    lcd.setRGB(colorR, colorG, colorB);
+  }
+}
