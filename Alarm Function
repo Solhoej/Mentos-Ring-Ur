@@ -2,23 +2,34 @@
 
 void Alarm() 
 {
-  String(text);
+  switch(Index) {
+    case 0:
+      SwitchScreen(EncoderFunc());
+      if (ButtonFunc("Alarm",4)){
+        Index++;
+        AlarmText = "Using Alarm";
+        callAlarm = true;
+      }
+      break;
+    case 1:
 
-  if(callAlarm == true) 
+      if (ButtonFunc("Alarm",4)){
+        Index = 0;
+        AlarmText = "Alarm";
+        callAlarm = true;
+      }
+
+      break;
+    default:
+      break;
+  }
+
+    if(callAlarm == true) 
   {
-    if(usingGlobal == false)
-    {
-      text = "Using Alarm Cock";  
-    }
-    else if(usingGlobal == true)
-    {
-      text = "Alarm Cock";
-    }
-
     int Index = 0;
 
     lcd.begin(16, 2);
-    lcd.print(text);
+    lcd.print(AlarmText);
     Serial.println(state);
     callStop = true;
     callGuess = true;
@@ -29,26 +40,6 @@ void Alarm()
     const int colorG = 255;
     const int colorB = 255;
     lcd.setRGB(colorR, colorG, colorB);
-  }
-
-  switch(Index) {
-    case 0:
-      SwitchScreen(EncoderFunc());
-      if (ButtonFunc("Alarm",4)){
-        Index++;
-      }
-      break;
-    case 1:
-
-      //code goes here:
-
-      if (ButtonFunc("Alarm",4)){
-        Index = 0;
-      }
-
-      break;
-    default:
-      break;
   }
 
 }
