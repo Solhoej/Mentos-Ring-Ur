@@ -1,10 +1,13 @@
 void StopUr() 
 {
-      switch(Index) {
+    switch(Index) {
     case 0:
       SwitchScreen(EncoderFunc());
       if (ButtonFunc("StopUr",1)){
         Index++;
+        colorR = 232;
+        colorG = 137;
+        colorB = 137;
         StopText = "Using Stop Ur";
         callStop = true;
       }
@@ -13,6 +16,9 @@ void StopUr()
 
       if (ButtonFunc("StopUr",1)){
         Index = 0;
+        colorR = 204;
+        colorG = 255;
+        colorB = 236;
         StopText = "Stop Ur";
         callStop = true;
       }
@@ -34,9 +40,6 @@ void StopUr()
     callBoil = true;
     callAlarm = true;
     callClock = true;
-    const int colorR = 0;
-    const int colorG = 255;
-    const int colorB = 0;
     lcd.setRGB(colorR, colorG, colorB);
   }
 }
