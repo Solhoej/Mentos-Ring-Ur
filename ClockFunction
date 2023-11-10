@@ -1,53 +1,46 @@
 void Clock() 
 {
 
-  String(text);
-
-  if(callClock == true)
-  {
-    if(usingGlobal == false)
-    {
-      text = "Using Cock";  
-    }
-    else if(usingGlobal == true)
-    {
-      text = "Cock";  
-    }
-
-    int Index = 0;
-    
-    lcd.begin(16, 2);
-    lcd.print(text);
-    Serial.println(state);
-    callStop = true;
-    callGuess = true;
-    callBoil = true;
-    callAlarm = true;
-    callClock = false;
-    const int colorR = 255;
-    const int colorG = 0;
-    const int colorB = 0;
-    lcd.setRGB(colorR, colorG, colorB);
-  }
-
     switch(Index) {
     case 0:
       SwitchScreen(EncoderFunc());
       Serial.println("ha"+EncoderFunc());
       if (ButtonFunc("Clock",0)){
         Index++;
+        ClockText = "Using Cock";
+        callClock = true;
       }
       break;
     case 1:
-      //code goes here:
 
+      lcd.createChar(4, amogus);
       if (ButtonFunc("Clock",0)){
+        ClockText = "Cock";
+        callClock = true;
         Index = 0;
       }
 
       break;
     default:
       break;
+  }
+
+  if(callClock == true)
+  {
+    int Index = 0;
+    
+    lcd.begin(16, 2);
+    lcd.print(ClockText);
+    Serial.println(state);
+    callStop = true;
+    callGuess = true;
+    callBoil = true;
+    callAlarm = true;
+    callClock = false;
+    colorR = 204;
+    colorG = 255;
+    colorB = 236;
+    lcd.setRGB(colorR, colorG, colorB);
   }
 
 }
