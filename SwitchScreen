@@ -1,0 +1,3 @@
+void SwitchScreen(long EncoderValue){
+  state = EncoderValue;
+}
