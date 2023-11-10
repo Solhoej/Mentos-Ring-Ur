@@ -40,6 +40,8 @@ void Alarm()
       break;
     case 1:
 
+      //code goes here:
+
       if (ButtonFunc("Alarm",4)){
         Index = 0;
       }
