@@ -1,0 +1,18 @@
+void BoilEgg() 
+{
+  if(callBoil == true) 
+  {
+    lcd.begin(16, 2);
+    lcd.print("Boil Cock");
+    Serial.println(state);
+    callStop = true;
+    callGuess = true;
+    callBoil = false;
+    callClock = true;
+    callAlarm = true;
+    const int colorR = 255;
+    const int colorG = 0;
+    const int colorB = 255;
+    lcd.setRGB(colorR, colorG, colorB);
+  }
+}
