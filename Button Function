@@ -1,0 +1,17 @@
+void ButtonFunc()
+{
+  if (buttonState == HIGH && buttonPressed == false) 
+  {
+    // turn LED on:
+    buttonPressed = true;
+    Serial.println("Pressed");
+  } else if(buttonState == LOW && buttonPressed == true) 
+  {
+    // turn LED off:
+    buttonPressed = false;
+    Serial.println("Let go");
+    digitalWrite(beepPin, HIGH);
+    delay(10);
+    digitalWrite(beepPin, LOW);
+  }
+}
