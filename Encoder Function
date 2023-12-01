@@ -1,10 +1,7 @@
-long value;
-
 long EncoderFunc()
 {
-  if(usingGlobal == true)
-  {
-    long EnkoderValue = enkoder.read();
+
+  long EnkoderValue = enkoder.read();
 
     value = EnkoderValue / 4;
 
@@ -13,6 +10,7 @@ long EncoderFunc()
     {
       oldPosition = newPosition;
       digitalWrite(beepPin, HIGH);
+      Index = 0;
       delay(1);
       digitalWrite(beepPin, LOW);
     }
@@ -30,5 +28,4 @@ long EncoderFunc()
       value = EnkoderValue / 4;
     }
     return value;
-  }
 }
