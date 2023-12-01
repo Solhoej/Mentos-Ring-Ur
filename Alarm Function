@@ -1,48 +1,45 @@
-
-
-void Alarm() 
+void Alarm()
 {
-  switch(Index) {
-    case 0:
-      SwitchScreen(EncoderFunc());
-      if (ButtonFunc("Alarm",4)){
-        Index++;
-         colorR = 232;
-         colorG = 137;
-         colorB = 137;
-        AlarmText = "Using Alarm";
-        callAlarm = true;
-      }
-      break;
-    case 1:
-
-      if (ButtonFunc("Alarm",4)){
-        Index = 0;
-        colorR = 204;
-        colorG = 255;
-        colorB = 236;
-        AlarmText = "Alarm";
-        callAlarm = true;
-      }
-
-      break;
-    default:
-      break;
-  }
-
-    if(callAlarm == true) 
+  switch(Index)
   {
-    int Index = 0;
+    case 0:
+      AlarmSetup();
+      break;
 
-    lcd.begin(16, 2);
-    lcd.print(AlarmText);
-    Serial.println(state);
-    callStop = true;
-    callGuess = true;
-    callBoil = true;
-    callAlarm = false;
-    callClock = true;
-    lcd.setRGB(colorR, colorG, colorB);
+    case 1:
+      SelectedAlarm();
+      break;
+
+    case 2:
+      InsideAlarm();
+      break;
+
+    default:
+    break;
   }
+}
 
+void AlarmSetup()
+{
+  lcd.begin(16, 2);
+  lcd.setCursor(4, 0);
+  lcd.print("Alarm ur");
+  Index = 1;
+}
+
+void SelectedAlarm()
+{
+  if (ButtonFunc() == true)
+  {
+    Index++;
+    lcd.begin(16, 2);
+    lcd.print("Using Alarm");
+  }
+}
+
+void InsideAlarm()
+{
+  if (ButtonFunc() == true){
+    Index = 0;
+  }
 }
