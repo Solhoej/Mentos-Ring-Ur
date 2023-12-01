@@ -1,46 +1,106 @@
-void Clock() 
+void ClockF()
 {
-
-    switch(Index) {
-    case 0:
-      SwitchScreen(EncoderFunc());
-      Serial.println("ha"+EncoderFunc());
-      if (ButtonFunc("Clock",0)){
-        Index++;
-        ClockText = "Using Cock";
-        callClock = true;
-      }
-      break;
-    case 1:
-
-      lcd.createChar(4, amogus);
-      if (ButtonFunc("Clock",0)){
-        ClockText = "Cock";
-        callClock = true;
-        Index = 0;
-      }
-
-      break;
-    default:
-      break;
-  }
-
-  if(callClock == true)
+  switch(Index)
   {
-    int Index = 0;
-    
+    case 0:
+      ClockSetup();
+      break;
+
+    case 1:
+      SelectedClock();
+      break;
+
+    case 2:
+      DisplayTime();
+      break;
+
+    default:
+    break;
+  }
+}
+
+void ClockSetup()
+{
+  lcd.begin(16, 2);
+  lcd.setCursor(5, 0);
+  lcd.print("Clock");
+  Index = 1;
+}
+
+void SelectedClock()
+{
+  if (ButtonFunc() == true)
+  {
+    menuSelect = false;
     lcd.begin(16, 2);
-    lcd.print(ClockText);
-    Serial.println(state);
-    callStop = true;
-    callGuess = true;
-    callBoil = true;
-    callAlarm = true;
-    callClock = false;
-    colorR = 204;
-    colorG = 255;
-    colorB = 236;
-    lcd.setRGB(colorR, colorG, colorB);
+    Index = 2;
+  }
+}
+
+void DisplayTime()
+{
+  lcd.setCursor(4, 0);
+ if(clock.year < 10)
+  {
+    lcd.print("0");
+    lcd.print(clock.year);
+  }
+  else
+  {
+    lcd.print(clock.year);
+  }
+  lcd.print(":");
+  if(clock.month < 10)
+  {
+    lcd.print("0");
+    lcd.print(clock.month);
+  }
+  else
+  {
+    lcd.print(clock.month);
+  }
+  lcd.print(":");
+  if(clock.dayOfMonth < 10)
+  {
+    lcd.print("0");
+    lcd.print(clock.dayOfMonth);
+  }
+  else
+  {
+    lcd.print(clock.dayOfMonth);
   }
 
+  lcd.setCursor(5, 1);
+  if(clock.hour < 10)
+  {
+    lcd.print("0");
+    lcd.print(clock.hour);
+  }
+  else
+  {
+    lcd.print(clock.hour);
+  }
+  lcd.print(":");
+  if(clock.minute < 10)
+  {
+    lcd.print("0");
+    lcd.print(clock.minute);
+  }
+  else
+  {
+    lcd.print(clock.minute);
+  }
+  
+
+  // Your other code can go here
+
+  delay(1000); // Update every second
+
+  if (ButtonFunc() == true)
+  {
+    menuSelect = true;
+    Index = 0;
+  }
+
+  delay(1000);
 }
