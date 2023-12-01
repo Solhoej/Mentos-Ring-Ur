@@ -1,47 +1,46 @@
-void GuessTime() 
+void GuessTime()
 {
-
-     switch(Index) {
-    case 0:
-      SwitchScreen(EncoderFunc());
-      if (ButtonFunc("Guess Time",2)){
-        Index++;
-         colorR = 232;
-         colorG = 137;
-         colorB = 137;
-        GuessText = "Using Guess Ur";
-        callGuess = true;
-      }
-      break;
-    case 1:
-
-      if (ButtonFunc("Guess Time",2)){
-        Index = 0;
-        colorR = 204;
-        colorG = 255;
-        colorB = 236;
-        GuessText = "Guess Ur";
-        callGuess = true;
-      }
-
-      break;
-    default:
-      break;
-  }
-
-    if(callGuess == true) 
+  switch(Index)
   {
-    int Index = 0;
+    case 0:
+      GuessSetup();
+      break;
 
-    lcd.begin(16, 2);
-    lcd.print(GuessText);
-    Serial.println(state);
-    callStop = true;
-    callGuess = false;
-    callBoil = true;
-    callAlarm = true;
-    callClock = true;
-    lcd.setRGB(colorR, colorG, colorB);
+    case 1:
+      SelectedGuess();
+      break;
+
+    case 2:
+      InsideGuess();
+      break;
+
+    default:
+    break;
   }
+}
 
+void GuessSetup()
+{
+  lcd.begin(16, 2);
+  lcd.print("Guess ur");
+  Index = 1;
+}
+
+void SelectedGuess()
+{
+  if (ButtonFunc() == true)
+  {
+    Index++;
+    lcd.begin(16, 2);
+    lcd.setCursor(3, 0);
+    lcd.print("Using Guess ur");
+  }
+}
+
+void InsideGuess()
+{
+  if (ButtonFunc() == true)
+  {
+    Index = 0;
+  }
 }
