@@ -1,18 +1,18 @@
-bool ButtonFunc(String arg, int lastState)
+bool ButtonFunc()
 {
   buttonState = digitalRead(buttonPin);
   if (buttonState == HIGH && buttonPressed == false) 
   {
     // turn LED on:
     buttonPressed = true;
-    usingGlobal = !usingGlobal;
-    Serial.println("Pressed " + arg);
+    menuSelect != menuSelect;
     return true;
   } 
   else if(buttonState == LOW && buttonPressed == true) 
   {
     // turn LED off:
     buttonPressed = false;
+    Serial.println(buttonPressDuration);
     Serial.println("Let go");
     digitalWrite(beepPin, HIGH);
     delay(10);
