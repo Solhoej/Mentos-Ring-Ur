@@ -1,46 +1,45 @@
-
-
-void BoilEgg() 
+void BoilEgg()
 {
-
-    switch(Index) {
-    case 0:
-      SwitchScreen(EncoderFunc());
-      if (ButtonFunc("Boil Egg",3)){
-        Index++;
-        BoilText = "Using Boil Egg";
-        callBoil = true;
-      }
-      break;
-    case 1:
-
-      if (ButtonFunc("Boil Egg",3)){
-        Index = 0;
-        BoilText = "Boil Egg";
-        callBoil = true;
-      }
-
-      break;
-    default:
-      break;
-  }
-
-    if(callBoil == true) 
+  switch(Index)
   {
-    int Index = 0;
+    case 0:
+      BoilSetup();
+      break;
 
-    lcd.begin(16, 2);
-    lcd.print(BoilText);
-    Serial.println(state);
-    callStop = true;
-    callGuess = true;
-    callBoil = false;
-    callAlarm = true;
-    callClock = true;
-        colorR = 204;
-        colorG = 255;
-        colorB = 236;
-    lcd.setRGB(colorR, colorG, colorB);
+    case 1:
+      SelectedBoil();
+      break;
+
+    case 2:
+      InsideBoil();
+      break;
+
+    default:
+    break;
   }
+}
 
+void BoilSetup()
+{
+  lcd.begin(16, 2);
+  lcd.print("Boil ur");
+  Index = 1;
+}
+
+void SelectedBoil()
+{
+  if (ButtonFunc() == true)
+  {
+    Index++;
+    lcd.begin(16, 2);
+    lcd.setCursor(4, 0);
+    lcd.print("Using Boil ur");
+  }
+}
+
+void InsideBoil()
+{
+  if (ButtonFunc() == true){
+    Index = 0;
+  }
 }
