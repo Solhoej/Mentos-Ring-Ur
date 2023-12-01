@@ -1,8 +1,18 @@
+#include <Wire.h>
+#include "DS1307.h"
+#include <Adafruit_I2CDevice.h>
+
+#include <RTClib.h>
+#include <LiquidCrystal.h>
+
 #include <rgb_lcd.h>
 #include <Encoder.h>
 
-Encoder enkoder(4, 5);
+DS1307 clock;
+
 rgb_lcd lcd;
+
+Encoder enkoder(4, 5);
 
 const int buttonPin = 2;
 const int beepPin = 3;
@@ -11,58 +21,51 @@ int colorR = 255;
 int colorG = 255;
 int colorB = 255;
 
-String(ClockText) = "Cock";
-String(StopText) = "Stop Ur";
-String(GuessText) = "Guess Ur";
-String(BoilText) = "Boil Egg";
-String(AlarmText) = "Alarm";
-
-int buttonState = 0;
 int state = 0;
-int boilState = 0;
-
-int Index = 0;
-
-int Time = 0;
-
-bool usingGlobal = true;
+int buttonState = 0;
+bool buttonPressed = false;
 
 long oldPosition  = -999;
 
-bool lastButtonState = HIGH;
+unsigned long buttonPressedTime = 0;
+unsigned long buttonPressDuration = 0;
 
-bool callClock = true;
-bool callStop = false;
-bool callGuess = false;
-bool callBoil = false;
-bool callAlarm = false;
+int value = 0;
 
-bool usingBoil = false;
-
-bool buttonPressed = false;
-
-byte amogus[8] = {
-    0b00100,
-    0b01010,
-    0b00100,
-    0b10101,
-    0b01110,
-    0b00100,
-    0b00100,
-    0b01010
-};
-
-void Clock();
+void ClockF();
 void StopUr();
 void GuessTime();
 void BoilEgg();
 void Alarm();
 
-void (*functionArray[])() = {Clock, StopUr, GuessTime, BoilEgg, Alarm};
+int Index = 0;
+
+bool menuSelect = true;
+
+bool cl;
+
+bool stopurbutton;
+
+bool usingFunction = false;
+
+unsigned long startTime = 0;
+bool running = false;
+
+void (*functionArray[])() = {ClockF, StopUr, GuessTime, BoilEgg, Alarm};
 
 void setup() 
 {
   Serial.begin(9600);
+
+  lcd.begin(16, 2);
+
+  Wire.begin();
+
+  clock.begin();
+	//clock.fillByYMD(2023,12,1);//Jan 19,2013
+	//clock.fillByHMS(11,12,1);//15:28 30"
+	//clock.fillDayOfWeek(FRI);//Saturday
+  //clock.setTime();//write time to the RTC chip
 
   lcd.begin(16, 2);
   lcd.setRGB(colorR, colorG, colorB);
@@ -71,16 +74,18 @@ void setup()
 
   pinMode(beepPin, OUTPUT);
   pinMode(buttonPin, INPUT);
-
 }
 
 void loop() 
 {
-
   digitalWrite(beepPin, LOW);
+  clock.getTime();
+
+  if(menuSelect)
+  {
+    SwitchScreen(EncoderFunc());
+  }
 
   functionArray[state]();
-
-  Time++;
-
+  
 }
