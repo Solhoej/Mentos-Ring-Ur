@@ -1,45 +1,117 @@
-void StopUr() 
+void StopUr()
 {
-    switch(Index) {
-    case 0:
-      SwitchScreen(EncoderFunc());
-      if (ButtonFunc("StopUr",1)){
-        Index++;
-        colorR = 232;
-        colorG = 137;
-        colorB = 137;
-        StopText = "Using Stop Ur";
-        callStop = true;
-      }
-      break;
-    case 1:
-
-      if (ButtonFunc("StopUr",1)){
-        Index = 0;
-        colorR = 204;
-        colorG = 255;
-        colorB = 236;
-        StopText = "Stop Ur";
-        callStop = true;
-      }
-
-      break;
-    default:
-      break;
-  }
-
-    if(callStop == true) 
+  switch(Index)
   {
-    int Index = 0;
+    case 0:
+      StopSetup();
+      break;
+
+    case 1:
+      SelectedStop();
+      break;
+
+    case 2:
+      InsideStop();
+      break;
+
+    case 3:
+      DisplayTimer();
+      break;
+
+    default:
+    break;
+  }
+}
+
+//start the program
+void StopSetup()
+{
+  menuSelect = true;
+  lcd.begin(16, 2);
+  lcd.print("Stop ur");
+  Index = 1;
+  unsigned long currentTime = 0;
+}
+//then make sure you can change state again
+void SelectedStop()
+{
+
+  if (ButtonFunc() == true)
+  {
+    Index = 2;
+    lcd.begin(16, 2);
+    lcd.setCursor(3, 0);
+    lcd.print("Click to start");
+    menuSelect = false;
+  }
+}
+
+//this should run forever
+void InsideStop()
+{
+
+  StopUrFunction();
+  
+  if (ButtonFunc() == true){
+      if(running == false)
+      {
+        startStopwatch();
+      }
+      else if(running == true)
+      {
+        stopStopwatch();
+        Index = 3;
+      }
+  }
+}
+
+void StopUrFunction() {
+  if (running) {
+    unsigned long currentTime = millis();
+    unsigned long elapsedTime = currentTime - startTime;
+
+    // Calculate hours, minutes, and seconds from milliseconds
+    unsigned long seconds = (elapsedTime / 1000) % 60;
+    unsigned long minutes = (elapsedTime / (1000 * 60)) % 60;
+    unsigned long hours = (elapsedTime / (1000 * 60 * 60)) % 24;
 
     lcd.begin(16, 2);
-    lcd.print(StopText);
-    Serial.println(state);
-    callStop = false;
-    callGuess = true;
-    callBoil = true;
-    callAlarm = true;
-    callClock = true;
-    lcd.setRGB(colorR, colorG, colorB);
+    lcd.print("Time: ");
+    lcd.print(hours);
+    lcd.print(":");
+    if (minutes < 10) lcd.print("0"); // Leading zero for minutes less than 10
+    lcd.print(minutes);
+    lcd.print(":");
+    if (seconds < 10) lcd.print("0"); // Leading zero for seconds less than 10
+    lcd.println(seconds);
+
+    delay(1000);
+
   }
+
+}
+
+void DisplayTimer()
+{
+
+  if(ButtonFunc() == true)
+  {
+    resetStopwatch();
+    Index = 0;
+  }
+}
+
+void startStopwatch() {
+  startTime = millis();
+  running = true;
+}
+
+void stopStopwatch() {
+  running = false;
+  
+}
+
+void resetStopwatch() {
+  running = false;
+  startTime = 0;
 }
